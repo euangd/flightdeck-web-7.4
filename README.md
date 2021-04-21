@@ -2,12 +2,12 @@
 
 # Flight Deck Web
 
-Flight Deck Web is a minimalist Apache/PHP container for Drupal and PHP-based sites on Kubernetes and Docker. You can use it both for local development and production.
+Flight Deck Web is a minimalist Apache/PHP container for Drupal, Wordpress, and other PHP-based sites on Kubernetes and Docker. You can use it both for local development and production.
 
 Features:
 * ConfigMap-friendly YAML configuration
 * PHP optimized out of the box for Drupal sites, while supporting any PHP application.
-* Drush, Drupal Console, Imagemagick, Node, SASS out of the box
+* Composer 2, Drush, Imagemagick, Node, SASS out of the box
 
 ## Tags and versions
 
@@ -15,13 +15,13 @@ There are several tags available for this container, each with different softwar
 
 | Tags | PHP version | Drupal versions | Drush |
 | ---- | ----------- | --------------- | ----- |
-| 7.4 | 7.4 | 8, 9 | 10.x |
-| 7.4-drupal | 7.4 | 7 | 8.x |
-| latest, 7, 7.3 | 7.3 | 8, 9 | 10.x |
-| 7.3-drupal7 | 7.3 | 7 | 8.x |
-| 7.2 | 7.2 | 8 | 9.x |
-| 7.2-drupal7 | 7.2 | 7 | 8.x |
-| 5.6 | 5.6 | 7, 6 | 8.x |
+| latest | 7.4 | 8, 9 | 10.x |
+| drupal7 | 7.4 | 7 | 8.x |
+| x.y.z | 7.4 | 8, 9 | 10.x |
+| drupal-7-x.y.z | 7.4 | 8, 9 | 10.x |
+
+Where:
+ * **x.y.z** is the container version as seen on the [tags page](https://github.com/ten7/flightdeck-web-7.4/tags)
 
 ## Configuration
 
@@ -81,7 +81,7 @@ flightdeck_web:
     sendmail_path: "/usr/sbin/sendmail"
     max_execution_time: "120"
     max_input_vars: "3000"
-    memory_limit: "{{ lookup('env', 'PHP_MAX_INPUT_VARS') | default('320M', true) }}"
+    memory_limit: "320M"
     upload_max_filesize: "128M"
     post_max_size: "128M"
     error_reporting: "E_ALL & ~E_DEPRECATED & ~E_STRICT"
