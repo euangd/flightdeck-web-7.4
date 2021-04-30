@@ -7,7 +7,7 @@ Flight Deck Web is a minimalist Apache/PHP container for Drupal, Wordpress, and 
 Features:
 * ConfigMap-friendly YAML configuration
 * PHP optimized out of the box for Drupal sites, while supporting any PHP application.
-* Composer 2, Drush, Imagemagick, Node, SASS out of the box
+* Composer 2, xdebug 3, Drush 10, Imagemagick, Node, and SASS out of the box
 
 ## Tags and versions
 
