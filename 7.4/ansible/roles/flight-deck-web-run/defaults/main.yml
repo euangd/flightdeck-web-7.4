@@ -41,6 +41,7 @@ flightdeck_web_defaults:
     opcache_fast_shutdown: yes
   xdebug:
     enabled: "{{ lookup('env', 'PHP_XDEBUG_ENABLED') | default(false, true) | bool }}"
+    mode: "debug"
     autostart: "{{ lookup('env', 'PHP_XDEBUG_AUTOSTART') | default(false, true) | bool }}"
     connectBack: "{{ lookup('env', 'PHP_XDEBUG_REMOTE_CONNECT_BACK') | default(false, true) | bool }}"
     stdoutLogs: "{{ lookup('env', 'PHP_XDEBUG_STDOUT_LOGS') | default(false, true) | bool }}"
