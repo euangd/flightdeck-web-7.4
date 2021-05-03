@@ -15,10 +15,8 @@ There are several tags available for this container, each with different softwar
 
 | Tags | PHP version | Drupal versions | Drush |
 | ---- | ----------- | --------------- | ----- |
-| latest | 7.4 | 8, 9 | 10.x |
-| drupal7 | 7.4 | 7 | 8.x |
-| x.y.z | 7.4 | 8, 9 | 10.x |
-| drupal-7-x.y.z | 7.4 | 8, 9 | 10.x |
+| latest | 7.4 | 7, 8, 9 | 8.x and 10.x |
+| x.y.z | 7.4 | 7, 8, 9 | 8.x and 10.x |
 
 Where:
  * **x.y.z** is the container version as seen on the [tags page](https://github.com/ten7/flightdeck-web-7.4/tags)
@@ -104,6 +102,23 @@ Where:
 * **display_startup_errors** specifies if startup errors should be written to the output of web requests. Optional, defaults to `no`.
 * **error_log** is the full path inside the container to write the PHP error log. Optional, defaults to the docker log collector at `/dev/stderr`.
 * **variables_order** specifies the order and types of variables to make available when serving web requests. Optional, defaults to production values.
+
+### Drush version
+
+This container assumes Drush 10 out of the box. To use Drush 8.x for Drupal 7, set the `flightdeck_web.drush.version` key:
+
+```yaml
+---
+flightdeck_web:
+  drush:
+    version: 8.x
+```
+
+Where:
+
+* **version** is the Drush version series to use, either `8.x` or `10.x`.
+
+Alternatively, you may choose to set the `DRUSH_VERSION` environment variable to `8.x`. This is only respected on container startup. To force a particular command invocation to use Drush 8.x, use the `drush8` command instead of `drush`.
 
 ### XDebug configuration
 

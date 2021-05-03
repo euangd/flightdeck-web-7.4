@@ -51,3 +51,14 @@
     regexp: "^cd \\$HOME$"
     line: "cd {{ flightdeck_web.vhosts[0].docroot | default('$HOME') }}"
     state: present
+- name: Symlink the Drush version
+  file:
+    src: "{% if flightdeck_web.drush.version | default(flightdeck_web_defaults.drush.version) == '8.x' %}\
+          /etc/drush8/vendor/bin/drush\
+          {% else %}\
+          /etc/drush10/vendor/bin/drush\
+          {% endif %}"
+    dest: "/var/www/.composer/vendor/bin/drush"
+    state: link
+    force: yes
+    follow: no

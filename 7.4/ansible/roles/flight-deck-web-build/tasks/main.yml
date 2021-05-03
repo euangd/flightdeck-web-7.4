@@ -118,14 +118,49 @@
     - "/var/log/apache2/error.log"
     - "/var/log/apache2/000_default-error_log"
     - "/var/log/apache2/000_default_ssl-error_log"
-- name: Install Drush
+- name: Make drush directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "apache"
+    group: "apache"
+    mode: "u=rwx,g=rwx,o=r"
+  loop:
+    - "/etc/drush8"
+    - "/etc/drush10"
+    - "/var/www/.composer/vendor/bin"
+- name: Install Drush 10.x
   shell: >
-    composer global require consolidation/cgr &&
-    /var/www/.composer/vendor/bin/cgr drush/drush:{{ flightdeck_drush_version | default('^10.0.0') }} &&
-    /var/www/.composer/vendor/bin/drush core:init -y
+    composer require drush/drush:{{ flightdeck_drush_version | default('^10.0.0') }} &&
+    /etc/drush10/vendor/bin/drush core:init -y
+  args:
+    chdir: "/etc/drush10"
   become: yes
   become_user: "apache"
   become_method: "su"
+- name: Install Drush 8.x
+  shell: >
+    composer require drush/drush:{{ flightdeck_drush_version | default('^8.0.0') }} &&
+    /etc/drush8/vendor/bin/drush core:init -y
+  args:
+    chdir: "/etc/drush8"
+  become: yes
+  become_user: "apache"
+  become_method: "su"
+- name: Add global drush symlinks
+  file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+    force: yes
+    follow: no
+  loop:
+    - src: "/etc/drush10/vendor/bin/drush"
+      dest: "/usr/local/bin/drush10"
+    - src:  "/etc/drush10/vendor/bin/drush"
+      dest: "/var/www/.composer/vendor/bin/drush"
+    - src: "/etc/drush8/vendor/bin/drush"
+      dest: /usr/local/bin/drush8
 - name: Set node global packages to install as user-local
   shell: >
     npm config set prefix '/var/www/.npm-global'
