@@ -23,14 +23,20 @@ Where:
 
 ## Configuration
 
-This container does not use environment variables for configuration. Instead, the `flight-deck-web.yml` file is used to handle all configuration.
+Instead of a large number of environment variables, this container relies on a file to perform all runtime configuration, `flightdeck-web.yml`. Inside the file, create following:
 
 ```yaml
 ---
 flightdeck_web: {}
 ```
 
-All configuration is done as items under the `flightdeck_web` variable. See the following sections for details.
+All configuration is done as items under the `flightdeck_web` variable. See the following sections for details as to particular configurations.
+
+You can provide this file in one of three ways to the container:
+
+* Mount the configuration file at path `/config/web/flightdeck-web.yml` inside the container using a bind mount, configmap, or secret.
+* Mount the config file anywhere in the container, and set the `FLIGHTDECK_CONFIG_FILE` environment variable to the path of the file.
+* Encode the contents of `flightdeck-web.yml` as base64 and assign the result to the `FLIGHTDECK_CONFIG` environment variable. 
 
 ### Configuring virtual hosts
 
