@@ -60,4 +60,4 @@ USER apache
 
 # Set the entrypoint and default command.
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["/usr/sbin/httpd", "-D", "FOREGROUND", "-f", "/etc/apache2/httpd.conf"]
+CMD ["docker-cmd.sh", "/usr/sbin/httpd", "-D", "FOREGROUND", "-f", "/etc/apache2/httpd.conf"]
