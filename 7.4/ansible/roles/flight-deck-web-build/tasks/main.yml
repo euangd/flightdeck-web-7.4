@@ -122,6 +122,7 @@
   loop:
     - "/etc/drush8"
     - "/etc/drush10"
+    - "/etc/wpcli"
     - "/var/www/.composer/vendor/bin"
 - name: Install Drush 10.x
   shell: >
@@ -141,7 +142,14 @@
   become: yes
   become_user: "apache"
   become_method: "su"
-- name: Add global drush symlinks
+- name: Install Wordpress CLI
+  get_url:
+    url: "https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar"
+    dest: "/etc/wpcli/wp"
+    owner: "apache"
+    group: "apache"
+    mode: "u=rx,g=rx,o=rx"
+- name: Add global drush and wp symlinks
   file:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
@@ -154,15 +162,9 @@
     - src:  "/etc/drush10/vendor/bin/drush"
       dest: "/var/www/.composer/vendor/bin/drush"
     - src: "/etc/drush8/vendor/bin/drush"
-      dest: /usr/local/bin/drush8
-- name: Install Wordpress CLI
-  args:
-    chdir: "/etc/wpcli"
-  become: yes
-  become_user: "apache"
-  become_method: "su"
-  shell: >
-    curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && mv wp-cli.phar wp && chmod +x wp
+      dest: "/usr/local/bin/drush8"
+    - src: "/etc/wpcli/wp"
+      dest: "/usr/local/bin/wp"
 - name: Set node global packages to install as user-local
   shell: >
     npm config set prefix '/var/www/.npm-global'
