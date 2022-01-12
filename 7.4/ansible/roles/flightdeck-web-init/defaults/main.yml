@@ -11,16 +11,6 @@ flightdeck_web_default_vhosts:
     env: "{{ flightdeck_web_default_vhost_envvars }}"
     error_log: "/dev/stderr"
     custom_log: "/dev/stdout"
-  - name: "{{ lookup('env', 'APACHE_SITE_NAME') | default('docker.test', true) }}"
-    host: "*:443"
-    docroot: "{{ lookup('env', 'APACHE_DOCROOT_DIR') | default('/var/www/html', true )}}"
-    aliases: "{{ lookup('env', 'APACHE_SITE_ALIAS') | default(['docker.localhost'], true) }}"
-    env: "{{ flightdeck_web_default_vhost_envvars }}"
-    error_log: "/dev/stderr"
-    custom_log: "/dev/stdout"
-    https:  yes
-    certFile: "/etc/ssl/apache2/server.pem"
-    keyFile: "/etc/ssl/apache2/server.key"
 
 flightdeck_web_defaults:
   vhosts: "{{ flightdeck_web_default_vhosts }}"

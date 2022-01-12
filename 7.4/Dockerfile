@@ -24,7 +24,7 @@ COPY ansible /ansible
 
 # Run the build.
 RUN ansible-galaxy install -fr /ansible/requirements.yml && \
-    ansible-playbook -i /ansible/inventories/all.ini /ansible/build.yml
+    ansible-playbook -i /etc/ansible/hosts /ansible/build.yml
 
 # Fix iconv extension
 # See https://github.com/docker-library/php/issues/240
@@ -52,7 +52,7 @@ RUN apk add --no-cache --virtual .php-build-dependencies $BUILD_PACKAGES && \
 RUN setcap cap_net_bind_service=+ep /usr/sbin/httpd
 
 # Configure the runtime environment of the container.
-EXPOSE 80 443
+EXPOSE 80
 WORKDIR /var/www
 
 # Switch to the service account.

@@ -1,4 +1,4 @@
 ---
-- hosts: flight-deck-web
+- hosts: flightdeck_web
   roles:
-    - flight-deck-web-run
+    - flightdeck-web-init
