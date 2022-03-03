@@ -39,6 +39,7 @@
     - "php7-phar"
     - "php7-sqlite3"
     - "php7-odbc"
+    - "php7-pecl-apcu"
     - "php7-pdo_odbc"
     - "php7-pdo"
     - "php7-pdo_mysql"
