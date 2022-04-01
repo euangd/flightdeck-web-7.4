@@ -40,6 +40,8 @@
     - "php7-sqlite3"
     - "php7-odbc"
     - "php7-pecl-apcu"
+    - "php7-pecl-memcache"
+    - "php7-pecl-redis"
     - "php7-pdo_odbc"
     - "php7-pdo"
     - "php7-pdo_mysql"
