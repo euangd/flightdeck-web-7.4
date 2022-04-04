@@ -1,12 +1,5 @@
-FROM alpine:3.13
+FROM alpine:3.15
 MAINTAINER tess@ten7.com
-
-# Force the container to use the GNU version of iconv.
-# See https://github.com/docker-library/php/issues/240
-# RUN apk add gnu-libiconv --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.11/community/ && \
-#     mv /usr/bin/gnu-iconv /usr/bin/iconv
-
-# ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so
 
 # Update the package list and install Ansible.
 RUN apk -U upgrade &&\
@@ -28,7 +21,7 @@ RUN ansible-galaxy install -fr /ansible/requirements.yml && \
 
 # Fix iconv extension
 # See https://github.com/docker-library/php/issues/240
-ENV PHP_VER="7.4.15"
+ENV PHP_VER="7.4.28"
 ARG BUILD_PACKAGES="wget build-base php7-dev"
 
 RUN apk add --no-cache --virtual .php-build-dependencies $BUILD_PACKAGES && \
@@ -46,7 +39,7 @@ RUN apk add --no-cache --virtual .php-build-dependencies $BUILD_PACKAGES && \
     mkdir -p /etc/php7/conf.d && \
     apk del .php-build-dependencies && \
     rm -rf /opt/*
-# # END Fix iconv extension
+# END Fix iconv extension
 
 # Allow Apache to allocate ports as non-root.
 RUN setcap cap_net_bind_service=+ep /usr/sbin/httpd
