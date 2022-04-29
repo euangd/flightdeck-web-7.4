@@ -36,7 +36,7 @@ You can provide this file in one of three ways to the container:
 
 * Mount the configuration file at path `/config/web/flightdeck-web.yml` inside the container using a bind mount, configmap, or secret.
 * Mount the config file anywhere in the container, and set the `FLIGHTDECK_CONFIG_FILE` environment variable to the path of the file.
-* Encode the contents of `flightdeck-web.yml` as base64 and assign the result to the `FLIGHTDECK_CONFIG` environment variable. 
+* Encode the contents of `flightdeck-web.yml` as base64 and assign the result to the `FLIGHTDECK_CONFIG` environment variable.
 
 ### Configuring virtual hosts
 
@@ -55,11 +55,6 @@ flightdeck_web:
       env:
         - name: ANSWER_TO_EVERYTHING
           value: "42"
-      https:  yes
-      certFile: "/etc/ssl/apache2/server.pem"
-      keyFile: "/etc/ssl/apache2/server.key"
-      extraLines:
-        - "SSLProxyEngine On"
 ```
 
 Where:
@@ -69,9 +64,6 @@ Where:
 * **docroot** is the full path inside the container to the site docroot. Optional, defaults to `/var/www/html`.
 * **aliases** is a list of domain aliases to treat as alternate domain names for the site. Optional.
 * **env** is a list of environment variables to set when serving requests. Optional.
-* **https** specifies that this vhost should serve requests through HTTPS. `yes` to enable, `no` to disable. Optional, defaults to `no`.
-* **certFile** is the full path inside the container to the SSL certificate chain in `*.pem` format. Optional.
-* **keyFile** is the full path inside the container to the SSL certificate private key. Optional.
 * **extraLines** is a list of additional custom lines to add to the vhost. Optional.
 
 ### Configuring PHP
@@ -178,7 +170,7 @@ flightdeck_cluster:
   configMaps:
     - name: "flight-deck-web"
       files:
-        - name: "flight-deck-web.yml"
+        - name: "flightdeck-web.yml"
           content: |
             flightdeck_web:
   web:
@@ -196,12 +188,11 @@ Create the `flight-deck-web.yml` file relative to your `docker-compose.yml`. Def
 version: '3'
 services:
   varnish:
-    image: ten7/flight-deck-web
+    image: ten7/flightdeck-web-7.4
     ports:
       - 80:80
-      - 433:433
     volumes:
-      - ./flight-deck-web.yml:/config/web/flight-deck-web.yml
+      - ./flightdeck-web.yml:/config/web/flightdeck-web.yml
 ```
 
 ### Using overrides to enable XDebug
@@ -222,7 +213,7 @@ It is highly recommended to add `docker-compose.overrides.yml` to your project's
 
 ## Extending
 
-Often, you may wish to build a custom container on top of this one which includes your website. To see an example of this, see the [ten7/flight-deck-drupal](https://github.com/ten7/flight-deck-drupal) example container.
+Often, you may wish to build a custom container on top of this one which includes your website. To see an example of this, see the [ten7/flightdeck-drupal](https://github.com/ten7/flightdeck-drupal) example container.
 
 ## Part of Flight Deck
 
