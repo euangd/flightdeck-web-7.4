@@ -1,4 +1,4 @@
-FROM alpine:3.15
+FROM alpine:3.13
 MAINTAINER tess@ten7.com
 
 # Update the package list and install Ansible.
@@ -21,7 +21,7 @@ RUN ansible-galaxy install -fr /ansible/requirements.yml && \
 
 # Fix iconv extension
 # See https://github.com/docker-library/php/issues/240
-ENV PHP_VER="7.4.28"
+ENV PHP_VER="7.4.15"
 ARG BUILD_PACKAGES="wget build-base php7-dev"
 
 RUN apk add --no-cache --virtual .php-build-dependencies $BUILD_PACKAGES && \
