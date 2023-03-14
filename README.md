@@ -2,7 +2,7 @@
 
 # Flight Deck Web
 
-Flight Deck Web is a minimalist Apache/PHP container for Drupal, Wordpress, and other PHP-based sites on Kubernetes and Docker. You can use it both for local development and production.
+Flight Deck Web is a minimalist Apache/PHP container for Drupal, Wordpress, and other PHP-based sites on Kubernetes and Docker. You can use it both for local development and production....
 
 Features:
 * ConfigMap-friendly YAML configuration
