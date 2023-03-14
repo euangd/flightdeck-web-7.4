@@ -41,6 +41,8 @@ RUN apk add --no-cache --virtual .php-build-dependencies $BUILD_PACKAGES && \
     rm -rf /opt/*
 # END Fix iconv extension
 
+RUN apk add php-gettext
+
 # Allow Apache to allocate ports as non-root.
 RUN setcap cap_net_bind_service=+ep /usr/sbin/httpd
 
